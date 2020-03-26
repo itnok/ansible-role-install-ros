@@ -3,7 +3,7 @@ install-ros-ubuntu
 
 [![Build Status](https://travis-ci.org/itnok/ansible-role-install-ros-ubuntu.svg?branch=master)](https://travis-ci.org/itnok/ansible-role-install-ros-ubuntu) [![GitHub tag](https://img.shields.io/github/v/tag/itnok/ansible-role-install-ros-ubuntu?sort=semver)](https://github.com/itnok/ansible-role-install-ros-ubuntu/tags/) [![Ansible Role](https://img.shields.io/ansible/role/47006)](https://galaxy.ansible.com/itnok/install_ros_ubuntu)
 
-Install ROS on a an Ubuntu host.
+Install ROS on an Ubuntu host.
 
 Steps performed are:
 
