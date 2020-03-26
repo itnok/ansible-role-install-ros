@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: install_ros
+  role_name: install_ros_ubuntu
   author: Simone Conti - @itnok
   description: Install ROS on a an Ubuntu host.
   company: itnok.com

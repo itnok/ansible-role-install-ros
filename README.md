@@ -1,7 +1,7 @@
-install-ros
-===========
+install-ros-ubuntu
+==================
 
-[![Build Status](https://travis-ci.org/itnok/ansible-role-install-ros.svg?branch=master)](https://travis-ci.org/itnok/ansible-role-install-ros) [![GitHub tag](https://img.shields.io/github/v/tag/itnok/ansible-role-install-ros?sort=semver)](https://github.com/itnok/ansible-role-install-ros/tags/) [![Ansible Role](https://img.shields.io/ansible/role/47006)](https://galaxy.ansible.com/itnok/install_ros)
+[![Build Status](https://travis-ci.org/itnok/ansible-role-install-ros-ubuntu.svg?branch=master)](https://travis-ci.org/itnok/ansible-role-install-ros-ubuntu) [![GitHub tag](https://img.shields.io/github/v/tag/itnok/ansible-role-install-ros-ubuntu?sort=semver)](https://github.com/itnok/ansible-role-install-ros-ubuntu/tags/) [![Ansible Role](https://img.shields.io/ansible/role/47006)](https://galaxy.ansible.com/itnok/install_ros_ubuntu)
 
 Install ROS on a an Ubuntu host.
 
@@ -33,7 +33,7 @@ None.
 ## :link: Dependencies
 ----------------------
 
-- [itnok.manage_pkg_ubuntu](https://galaxy.ansible.com/itnok/manage_pkg_ubuntu) _(:octocat: [ansible-role-install-ros](https://github.com/itnok/ansible-role-install-ros))_
+- [itnok.manage_pkg_ubuntu](https://galaxy.ansible.com/itnok/manage_pkg_ubuntu) _(:octocat: [ansible-role-manage-pkg-ubuntu](https://github.com/itnok/ansible-role-manage-pkg-ubuntu))_
 
 To install dependencies use:
 ```
@@ -59,7 +59,7 @@ Here an example of how to use this role in your playbooks:
   become: yes
 
   roles:
-    - { role: itnok.install_ros }
+    - { role: itnok.install_ros_ubuntu }
 
   vars:
     ros_install_distro: "melodic"

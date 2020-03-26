@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-role-install-ros
+# tasks file for ansible-role-install-ros-ubuntu
 - include_vars: "main.yml"
 
 - name: "Gather facts"

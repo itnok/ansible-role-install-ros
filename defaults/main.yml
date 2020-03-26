@@ -1,4 +1,4 @@
 ---
-# defaults file for ansible-role-install-ros
+# defaults file for ansible-role-install-ros-ubuntu
 install_ros_distro: "melodic"
 install_ros: "ros-base"
