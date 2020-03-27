@@ -40,7 +40,7 @@ To install dependencies use:
     $ ansible-galaxy install <dependecy.name>
 ```
 
-Installation of the required Ansible Roles can also be simply addressed from they playbook using them with:
+Installation of the required Ansible Roles can also be simply addressed with:
 ```
     $ ansible-galaxy install -r requirements.yml
 ```
