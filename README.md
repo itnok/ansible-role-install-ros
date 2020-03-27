@@ -62,8 +62,8 @@ Here an example of how to use this role in your playbooks:
     - { role: itnok.install_ros_ubuntu }
 
   vars:
-    ros_install_distro: "melodic"
-    ros_install_distro: "desktop-full"
+    install_ros_distro: "melodic"
+    install_ros: "desktop-full"
 ```
 
 ## :guardsman: License
