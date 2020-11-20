@@ -1,9 +1,20 @@
 ---
 # tasks file for ansible-role-install-ros-ubuntu
-- include_vars: "main.yml"
+- name: "Include role variables"
+  include_vars: "main.yml"
 
 - name: "Gather facts"
   setup:    # equivalent to "gather_facts: yes"
+
+- name: "Check ROS compatibilty with current OS"
+  assert:
+    that:
+      - install_ros_distro == "{{ item.ros_distro }}"
+    fail_msg: "{{ ansible_distribution }} {{ ansible_distribution_version }} {{ ansible_distribution_release }} does NOT support ROS {{ install_ros_distro }}"
+  when: ansible_distribution_release == item.os_release
+  with_items:
+    - { os_release: "bionic", ros_distro: "melodic" }
+    - { os_release: "focal", ros_distro: "noetic" }
 
 - name: "Install ROS '{{ install_ros_distro }}'"
   include_role:
@@ -15,13 +26,17 @@
     manage_pkg_key:
       - { url: "hkp://keyserver.ubuntu.com:80", key: "C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654" }
     manage_pkg_repo:
-      - "deb http://packages.ros.org/ros/ubuntu bionic main"
+      - "deb http://packages.ros.org/ros/ubuntu {{ ansible_distribution_release }} main"
     manage_pkg_app:
       - "ros-{{ install_ros_distro }}-{{ install_ros }}"
-      - "python-rosdep"
-      - "python-rosinstall"
-      - "python-rosinstall-generator"
-      - "python-wstool"
+      - "{{ item.snake }}-rosdep"
+      - "{{ item.snake }}-rosinstall"
+      - "{{ item.snake }}-rosinstall-generator"
+      - "{{ item.snake }}-wstool"
+  when: ansible_distribution_release == item.os_release
+  with_items:
+    - { os_release: "bionic", snake: "python" }
+    - { os_release: "focal", snake: "python3" }
 
 - name: "Check if `rosdep init` was run"
   stat:
@@ -31,7 +46,7 @@
 - name: "Initialize ROS dependencies source list"
   shell: "rosdep init"
   become: yes
-  when: ros_sources_list.stat.exists == False
+  when: not ros_sources_list.stat.exists
 
 - name: "Update ROS dependencies for user '{{ remote_user }}'"
   shell: "rosdep update"
