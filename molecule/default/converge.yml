@@ -1,0 +1,9 @@
+---
+# Molecule Coverage file for ansible-role-install-ros-ubuntu
+- name: Converge
+  hosts: all
+
+  tasks:
+    - name: "Include this role"
+      include_role:
+        name: "ansible-role-install-ros-ubuntu"

@@ -1,0 +1,55 @@
+---
+# Molecule configuration file for ansible-role-install-ros-ubuntu
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+lint: |
+  yamllint .
+  ansible-lint
+platforms:
+  - name: itnok-ubuntu-bionic
+    ### Supplying a registry URL here where
+    ### an updated image can be found will
+    ### eventually prevent building it on-the-fly
+    ### (If needed uncomment lines below)
+    #registry:
+    #  url: "<https://registry.url.here:port>"
+    image: ${MOLECULE_DISTRO:-'ubuntu:bionic'}
+    pre_build_image: false
+    ### All the key/value pairs for `env` will be
+    ### used to create environment variables inside
+    ### the container used for testing...
+    env:
+      ANSIBLE_USER: "user"
+  - name: itnok-ubuntu-focal
+    ### Supplying a registry URL here where
+    ### an updated image can be found will
+    ### eventually prevent building it on-the-fly
+    ### (If needed uncomment lines below)
+    #registry:
+    #  url: "<https://registry.url.here:port>"
+    image: ${MOLECULE_DISTRO:-'ubuntu:focal'}
+    pre_build_image: false
+    ### All the key/value pairs for `env` will be
+    ### used to create environment variables inside
+    ### the container used for testing...
+    env:
+      ANSIBLE_USER: "user"
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: "/usr/bin/python3"
+    host_vars:
+      itnok-ubuntu-bionic:
+        ansible_user: "user"
+        install_ros_distro: "melodic"
+      itnok-ubuntu-focal:
+        ansible_user: "user"
+        install_ros_distro: "noetic"
+verifier:
+  name: ansible

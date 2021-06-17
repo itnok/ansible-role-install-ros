@@ -1,0 +1,16 @@
+---
+# Molecule test cases for ansible-role-install-ros-ubuntu
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: "Include role variables"
+      include_vars: "../../defaults/main.yml"
+
+    - name: "!!! Assert..."
+      block:
+        - name: "...that this is always true and must be replaced with more real test cases"
+          assert:
+            that: true
