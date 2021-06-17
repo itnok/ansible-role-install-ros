@@ -43,11 +43,23 @@
     path: "/etc/ros/rosdep/sources.list.d/20-default.list"
   register: ros_sources_list
 
-- name: "Check if `~/.ros/rosdep/sources.cache` directory exists for user '{{ ansible_user }}'"
+- name: "Set remote_user if needed"
+  set_fact:
+    remote_user: "{{ remote_user | \
+      default((ansible_bender is defined) | ternary(ansible_bender.target_image.user, '') | \
+      default(ansible_ssh_user | \
+      default(ansible_user | \
+      default(ansible_user_id | \
+      default(ansible_env.SUDO_USER | \
+      default(ansible_env.USERNAME | \
+      default(ansible_env.USER, \
+      true), true), true), true), true), true), true) }}"
+
+- name: "Check if `~/.ros/rosdep/sources.cache` directory exists for user '{{ remote_user }}'"
   stat:
     path: "~/.ros/rosdep/sources.cache"
   become: yes
-  become_user: "{{ ansible_user }}"
+  become_user: "{{ remote_user }}"
   register: ros_rosdep_directory
 
 - name: "Initialize ROS dependencies source list"
@@ -55,8 +67,8 @@
   become: yes
   when: not ros_sources_list.stat.exists
 
-- name: "Update ROS dependencies for user '{{ ansible_user }}'"
+- name: "Update ROS dependencies for user '{{ remote_user }}'"
   command: "rosdep update"
   become: yes
-  become_user: "{{ ansible_user }}"
+  become_user: "{{ remote_user }}"
   when: not ros_rosdep_directory.stat.exists
